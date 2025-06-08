@@ -5,138 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Contestation de Litiges - TotalEnergies</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      background-color: #f5f5f5;
-      color: #333;
-    }
-
-    h1 {
-      color: #d71920;
-    }
-
-    form {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 600px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-
-    select, input[type="text"], textarea, input[type="file"] {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    button {
-      margin-top: 20px;
-      padding: 10px 15px;
-      background-color: #d71920;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #a11217;
-    }
+    /* Styles CSS ici */
   </style>
 </head>
 <body>
-
   <h1>Formulaire de Contestation</h1>
-
   <form>
-    <label for="type-litige">Type de litige :</label>
-    <select id="type-litige" name="type-litige" required>
-      <option value="">-- Sélectionnez --</option>
-      <option value="frais">Litige Frais</option>
-      <option value="index">Litige Index</option>
-    </select>
-
-    <div id="frais-options" class="hidden">
-      <label for="sous-type-frais">Sous-type de litige frais :</label>
-      <select id="sous-type-frais" name="sous-type-frais">
-        <option value="">-- Sélectionnez --</option>
-        <option>Frais de Mise En Service</option>
-        <option>Frais de Modification de Puissance</option>
-        <option>Frais d'Absence de Relève Réelle</option>
-        <option>Frais de Dédit</option>
-        <option>Frais d'Enquête</option>
-        <option>Frais de Course Vaine/Déplacement Sans Intervention</option>
-      </select>
-    </div>
-
-    <div id="index-options" class="hidden">
-      <label for="sous-type-index">Sous-type de litige index :</label>
-      <select id="sous-type-index" name="sous-type-index">
-        <option value="">-- Sélectionnez --</option>
-        <option>Index de Mise En Service</option>
-        <option>Index de Changement de Fournisseur Entrant</option>
-        <option>Index Relevés</option>
-        <option>Index de Dépose/Pose de Compteur</option>
-        <option>Index de Changement de Fournisseur Sortant</option>
-        <option>Index de Résiliation</option>
-      </select>
-    </div>
-
-    <!-- Bloc fichiers et commentaire -->
-    <div id="justificatif-section" class="hidden">
-      <label for="fichiers">Pièces jointes (PDF, JPG, PNG) :</label>
-      <input type="file" id="fichiers" name="fichiers[]" multiple accept=".pdf,.jpg,.jpeg,.png">
-
-      <label for="commentaire">Commentaire :</label>
-      <textarea id="commentaire" name="commentaire" rows="4" placeholder="Ajoutez un commentaire ici..."></textarea>
-    </div>
-
-    <button type="submit">Soumettre la contestation</button>
+    <!-- Formulaire HTML ici -->
   </form>
-
   <script>
-    const typeLitige = document.getElementById('type-litige');
-    const fraisOptions = document.getElementById('frais-options');
-    const indexOptions = document.getElementById('index-options');
-    const sousTypeFrais = document.getElementById('sous-type-frais');
-    const sousTypeIndex = document.getElementById('sous-type-index');
-    const justificatifSection = document.getElementById('justificatif-section');
-
-    typeLitige.addEventListener('change', function () {
-      fraisOptions.classList.add('hidden');
-      indexOptions.classList.add('hidden');
-      justificatifSection.classList.add('hidden');
-      sousTypeFrais.value = "";
-      sousTypeIndex.value = "";
-
-      if (this.value === 'frais') {
-        fraisOptions.classList.remove('hidden');
-      } else if (this.value === 'index') {
-        indexOptions.classList.remove('hidden');
-      }
-    });
-
-    sousTypeFrais.addEventListener('change', function () {
-      justificatifSection.classList.toggle('hidden', this.value === "");
-    });
-
-    sousTypeIndex.addEventListener('change', function () {
-      justificatifSection.classList.toggle('hidden', this.value === "");
-    });
+    // Script JavaScript ici
   </script>
-
 </body>
 </html>
