@@ -30,7 +30,7 @@
       font-weight: bold;
     }
 
-    select, input[type="text"], textarea {
+    select, input[type="text"], textarea, input[type="file"] {
       width: 100%;
       padding: 8px;
       margin-top: 5px;
@@ -95,8 +95,14 @@
       </select>
     </div>
 
-    <label for="commentaire">Commentaire :</label>
-    <textarea id="commentaire" name="commentaire" rows="4" placeholder="Ajoutez un commentaire ici..."></textarea>
+    <!-- Bloc fichiers et commentaire -->
+    <div id="justificatif-section" class="hidden">
+      <label for="fichiers">Pièces jointes (PDF, JPG, PNG) :</label>
+      <input type="file" id="fichiers" name="fichiers[]" multiple accept=".pdf,.jpg,.jpeg,.png">
+
+      <label for="commentaire">Commentaire :</label>
+      <textarea id="commentaire" name="commentaire" rows="4" placeholder="Ajoutez un commentaire ici..."></textarea>
+    </div>
 
     <button type="submit">Soumettre la contestation</button>
   </form>
@@ -105,20 +111,8 @@
     const typeLitige = document.getElementById('type-litige');
     const fraisOptions = document.getElementById('frais-options');
     const indexOptions = document.getElementById('index-options');
+    const sousTypeFrais = document.getElementById('sous-type-frais');
+    const sousTypeIndex = document.getElementById('sous-type-index');
+    const justificatifSection = document.getElementById('justificatif-section');
 
-    typeLitige.addEventListener('change', function () {
-      if (this.value === 'frais') {
-        fraisOptions.classList.remove('hidden');
-        indexOptions.classList.add('hidden');
-      } else if (this.value === 'index') {
-        indexOptions.classList.remove('hidden');
-        fraisOptions.classList.add('hidden');
-      } else {
-        fraisOptions.classList.add('hidden');
-        indexOptions.classList.add('hidden');
-      }
-    });
-  </script>
-
-</body>
-</html>
+    typeLitige
