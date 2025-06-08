@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contestation de Litiges - TotalEnergies</title>
   <style>
-    /* Couleurs de TotalEnergies */
+    /* Couleurs TotalEnergies */
     :root {
       --rouge: #e2001a;
       --orange: #ff6e00;
@@ -18,37 +18,68 @@
       --texte: #333;
     }
 
+    /* Fond dégradé animé aux couleurs TotalEnergies */
     body {
       margin: 0;
       padding: 0;
       font-family: "Segoe UI", sans-serif;
       color: var(--texte);
-      background: linear-gradient(to bottom right, var(--rouge), var(--orange), var(--jaune), var(--rose), var(--vert), var(--bleu));
-      background-size: 600% 600%;
-      animation: gradient 20s ease infinite;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      min-height: 100vh;
       padding: 2rem;
-      background-image: url('https://pixabay.com/get/57e3d34a4f52a514f6da8c7dda79367a1c3ed9e04e5074417c2d7cd49f44c5_640.jpg'), url('https://pixabay.com/get/57e3d34a4f52a514f6da8c7dda79367a1c3ed9e04e5074417c2d7cd49f44c5_640.jpg');
-      background-size: cover;
-      background-position: center;
+      background: linear-gradient(270deg, var(--rouge), var(--orange), var(--jaune), var(--rose), var(--vert), var(--bleu));
+      background-size: 1200% 1200%;
+      animation: gradientAnim 30s ease infinite;
+      position: relative;
+      overflow-x: hidden;
     }
 
-    @keyframes gradient {
+    @keyframes gradientAnim {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
+    /* Images des compteurs en fond (arrière-plan) */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 10%;
+      left: 5%;
+      width: 200px;
+      height: 200px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/9/9e/Electric_meter_02-2009.JPG') no-repeat center/contain;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,0.1));
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      bottom: 15%;
+      right: 5%;
+      width: 220px;
+      height: 220px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Gas_meter.jpg/320px-Gas_meter.jpg') no-repeat center/contain;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,0.1));
+    }
+
     .container {
-      background: rgba(255, 255, 255, 0.9);
+      position: relative;
+      background: var(--blanc);
       border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
       padding: 30px;
       max-width: 650px;
       width: 100%;
+      z-index: 1;
     }
 
     .logo {
@@ -64,6 +95,7 @@
       text-align: center;
       color: var(--rouge);
       font-size: 1.8em;
+      margin-bottom: 10px;
     }
 
     label {
@@ -82,6 +114,7 @@
       border-radius: 6px;
       font-size: 16px;
       background: #fffaf5;
+      transition: border-color 0.3s ease;
     }
 
     select:focus,
@@ -120,19 +153,6 @@
     .section {
       margin-top: 15px;
     }
-
-    .compteur-images {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 20px;
-    }
-
-    .compteur-images img {
-      width: 100px;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
   </style>
 </head>
 <body>
@@ -151,7 +171,6 @@
         <option value="index">Litige Index</option>
       </select>
 
-      <!-- Sous-types frais -->
       <div id="frais-options" class="section hidden">
         <label for="sous-type-frais">Sous-type de litige frais :</label>
         <select id="sous-type-frais" name="sous-type-frais">
@@ -165,7 +184,6 @@
         </select>
       </div>
 
-      <!-- Sous-types index -->
       <div id="index-options" class="section hidden">
         <label for="sous-type-index">Sous-type de litige index :</label>
         <select id="sous-type-index" name="sous-type-index">
@@ -179,7 +197,6 @@
         </select>
       </div>
 
-      <!-- Section justificatif/commentaire -->
       <div id="justificatif-section" class="section hidden">
         <label for="fichiers">Pièces jointes (PDF, JPG, PNG) :</label>
         <input type="file" id="fichiers" name="fichiers[]" multiple accept=".pdf,.jpg,.jpeg,.png" />
@@ -190,11 +207,6 @@
 
       <button type="submit">Soumettre la contestation</button>
     </form>
-
-    <div class="compteur-images">
-      <img src="https://pixabay.com/get/57e3d34a4f52a514f6da8c7dda79367a1c3ed9e04e5074417c2d7cd49f44c5_640.jpg" alt="Compteur électrique" />
-      <img src="https://pixabay.com/get/57e3d34a4f52a514f6da8c7dda79367a1c3ed9e04e5074417c2d7cd49f44c5_640.jpg" alt="Compteur gaz" />
-    </div>
   </div>
 
   <script>
@@ -205,16 +217,16 @@
     const sousTypeIndex = document.getElementById('sous-type-index');
     const justificatifSection = document.getElementById('justificatif-section');
 
-    typeLitige.addEventListener('change', function () {
+    typeLitige.addEventListener('change', () => {
       fraisOptions.classList.add('hidden');
       indexOptions.classList.add('hidden');
       justificatifSection.classList.add('hidden');
       sousTypeFrais.value = "";
       sousTypeIndex.value = "";
 
-      if (this.value === 'frais') {
+      if (typeLitige.value === 'frais') {
         fraisOptions.classList.remove('hidden');
-      } else if (this.value === 'index') {
+      } else if (typeLitige.value === 'index') {
         indexOptions.classList.remove('hidden');
       }
     });
@@ -223,12 +235,12 @@
       justificatifSection.classList.toggle('hidden', value === "");
     }
 
-    sousTypeFrais.addEventListener('change', function () {
-      showJustificatifIfNeeded(this.value);
+    sousTypeFrais.addEventListener('change', () => {
+      showJustificatifIfNeeded(sousTypeFrais.value);
     });
 
-    sousTypeIndex.addEventListener('change', function () {
-      showJustificatifIfNeeded(this.value);
+    sousTypeIndex.addEventListener('change', () => {
+      showJustificatifIfNeeded(sousTypeIndex.value);
     });
   </script>
 </body>
