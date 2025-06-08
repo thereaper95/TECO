@@ -115,4 +115,28 @@
     const sousTypeIndex = document.getElementById('sous-type-index');
     const justificatifSection = document.getElementById('justificatif-section');
 
-    typeLitige
+    typeLitige.addEventListener('change', function () {
+      fraisOptions.classList.add('hidden');
+      indexOptions.classList.add('hidden');
+      justificatifSection.classList.add('hidden');
+      sousTypeFrais.value = "";
+      sousTypeIndex.value = "";
+
+      if (this.value === 'frais') {
+        fraisOptions.classList.remove('hidden');
+      } else if (this.value === 'index') {
+        indexOptions.classList.remove('hidden');
+      }
+    });
+
+    sousTypeFrais.addEventListener('change', function () {
+      justificatifSection.classList.toggle('hidden', this.value === "");
+    });
+
+    sousTypeIndex.addEventListener('change', function () {
+      justificatifSection.classList.toggle('hidden', this.value === "");
+    });
+  </script>
+
+</body>
+</html>
