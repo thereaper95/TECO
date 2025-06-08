@@ -1,20 +1,181 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contestation de Litiges - TotalEnergies</title>
   <style>
-    /* Styles CSS ici */
+    :root {
+      --primary: #e2001a;
+      --secondary: #f9f9f9;
+      --accent: #ffd100;
+      --text: #333;
+      --input-bg: #fff;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--secondary);
+      font-family: "Segoe UI", sans-serif;
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .container {
+      background: var(--input-bg);
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--primary);
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: 600;
+    }
+
+    select,
+    textarea,
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      background: var(--input-bg);
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 12px 20px;
+      width: 100%;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #bb0016;
+    }
+
+    .section {
+      margin-top: 15px;
+    }
+
+    .note {
+      font-size: 0.85rem;
+      color: #777;
+    }
   </style>
 </head>
 <body>
-  <h1>Formulaire de Contestation</h1>
-  <form>
-    <!-- Formulaire HTML ici -->
-  </form>
+  <div class="container">
+    <h1>Contestation de Litiges</h1>
+
+    <form>
+      <label for="type-litige">Type de litige :</label>
+      <select id="type-litige" name="type-litige" required>
+        <option value="">-- Sélectionnez --</option>
+        <option value="frais">Litige Frais</option>
+        <option value="index">Litige Index</option>
+      </select>
+
+      <!-- Sous-types pour frais -->
+      <div id="frais-options" class="section hidden">
+        <label for="sous-type-frais">Sous-type de litige frais :</label>
+        <select id="sous-type-frais" name="sous-type-frais">
+          <option value="">-- Sélectionnez --</option>
+          <option>Frais de Mise En Service</option>
+          <option>Frais de Modification de Puissance</option>
+          <option>Frais d'Absence de Relève Réelle</option>
+          <option>Frais de Dédit</option>
+          <option>Frais d'Enquête</option>
+          <option>Frais de Course Vaine/Déplacement Sans Intervention</option>
+        </select>
+      </div>
+
+      <!-- Sous-types pour index -->
+      <div id="index-options" class="section hidden">
+        <label for="sous-type-index">Sous-type de litige index :</label>
+        <select id="sous-type-index" name="sous-type-index">
+          <option value="">-- Sélectionnez --</option>
+          <option>Index de Mise En Service</option>
+          <option>Index de Changement de Fournisseur Entrant</option>
+          <option>Index Relevés</option>
+          <option>Index de Dépose/Pose de Compteur</option>
+          <option>Index de Changement de Fournisseur Sortant</option>
+          <option>Index de Résiliation</option>
+        </select>
+      </div>
+
+      <!-- Section justificatifs/commentaire -->
+      <div id="justificatif-section" class="section hidden">
+        <label for="fichiers">Joindre des fichiers (PDF, JPG, PNG) :</label>
+        <input type="file" id="fichiers" name="fichiers[]" multiple accept=".pdf,.jpg,.jpeg,.png" />
+
+        <label for="commentaire">Commentaire détaillé :</label>
+        <textarea id="commentaire" name="commentaire" rows="5" placeholder="Expliquez clairement la nature du litige, les circonstances, et toute information utile..."></textarea>
+      </div>
+
+      <button type="submit">Soumettre la contestation</button>
+    </form>
+  </div>
+
   <script>
-    // Script JavaScript ici
+    const typeLitige = document.getElementById('type-litige');
+    const fraisOptions = document.getElementById('frais-options');
+    const indexOptions = document.getElementById('index-options');
+    const sousTypeFrais = document.getElementById('sous-type-frais');
+    const sousTypeIndex = document.getElementById('sous-type-index');
+    const justificatifSection = document.getElementById('justificatif-section');
+
+    // Gère le type de litige (frais vs index)
+    typeLitige.addEventListener('change', function () {
+      fraisOptions.classList.add('hidden');
+      indexOptions.classList.add('hidden');
+      justificatifSection.classList.add('hidden');
+      sousTypeFrais.value = "";
+      sousTypeIndex.value = "";
+
+      if (this.value === 'frais') {
+        fraisOptions.classList.remove('hidden');
+      } else if (this.value === 'index') {
+        indexOptions.classList.remove('hidden');
+      }
+    });
+
+    // Affiche les pièces jointes et le commentaire dès qu'un sous-type est sélectionné
+    sousTypeFrais.addEventListener('change', function () {
+      justificatifSection.classList.toggle('hidden', this.value === "");
+    });
+
+    sousTypeIndex.addEventListener('change', function () {
+      justificatifSection.classList.toggle('hidden', this.value === "");
+    });
   </script>
 </body>
 </html>
